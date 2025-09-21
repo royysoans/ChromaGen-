@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ChromaGen Pro: AI Color Palette Generator</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="liquid-bg">
+            <div class="liquid-shape"></div>
+            <div class="liquid-shape"></div>
+            <div class="liquid-shape"></div>
+        </div>
+        <div class="particle-container" id="particleContainer"></div>
+        <div class="min-h-screen flex items-center justify-center p-4 md:p-6 lg:p-8">
+            <div class="glass-container w-full max-w-6xl rounded-3xl p-6 md:p-8 lg:p-12">
+                <header class="text-center mb-8 md:mb-12">
+                    <h1 class="glitch text-4xl md:text-5xl lg:text-6xl mb-3" data-text="CHROMAGEN PRO">CHROMAGEN PRO</h1>
+                    <p class="text-gray-400 text-base md:text-lg lg:text-xl max-w-2xl mx-auto">
+                        Next-generation AI color intelligence with real-time template generation
+                    </p>
+                </header>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-300 flex items-center gap-2">
+                            <span class="lucide lucide-sparkles w-4 h-4 text-sky-400"></span>
+                            Describe Your Vision
+                        </label>
+                        <textarea
+                            id="textPrompt"
+                            rows="4"
+                            class="neon-input w-full p-4 rounded-xl text-white placeholder-gray-500 resize-none"
+                            placeholder="e.g., 'Cyberpunk neon city with electric blues and hot pinks'"
+                        ></textarea>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-300 flex items-center gap-2">
+                            <span class="lucide lucide-image w-4 h-4 text-purple-400"></span>
+                            Extract from Image
+                        </label>
+                        <div class="relative">
+                            <input type="file" id="imageUpload" accept="image/*" class="hidden">
+                            <div
+                                id="uploadArea"
+                                class="neon-input h-[120px] rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-purple-400 transition-all"
+                            >
+                                <span class="lucide lucide-upload-cloud w-8 h-8 text-gray-400 mb-2"></span>
+                                <p id="fileName" class="text-sm text-gray-400">Click or drag image here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center mb-10">
+                    <button id="generateBtn" class="holographic-btn px-8 md:px-12 py-3 md:py-4 rounded-full text-white font-bold text-base md:text-lg shadow-2xl">
+                        <span class="flex items-center gap-3">
+                            <span class="lucide lucide-wand-2"></span>
+                            Generate Palette
+                        </span>
+                    </button>
+                </div>
+                <div id="loadingState" class="hidden">
+                    <div class="flex justify-center mb-4">
+                        <div class="loading-dots">
+                            <div class="loading-dot"></div>
+                            <div class="loading-dot"></div>
+                            <div class="loading-dot"></div>
+                            <div class="loading-dot"></div>
+                            <div class="loading-dot"></div>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-400">Creating your perfect palette...</p>
+                </div>
+                <div id="resultsSection" class="hidden space-y-10">
+                    <div class="fade-in">
+                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span class="lucide lucide-palette w-6 h-6 text-sky-400"></span>
+                            Your Color Palette
+                        </h2>
+                        <div id="paletteDisplay" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                        </div>
+                    </div>
+                    <div class="fade-in" style="animation-delay: 0.2s">
+                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span class="lucide lucide-layout-template w-6 h-6 text-purple-400"></span>
+                            Design Templates
+                        </h2>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <button data-template="website" class="tab-pill active px-4 py-2 rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700">Website</button>
+                            <button data-template="mobile" class="tab-pill px-4 py-2 rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700">Mobile App</button>
+                            <button data-template="dashboard" class="tab-pill px-4 py-2 rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700">Dashboard</button>
+                            <button data-template="card" class="tab-pill px-4 py-2 rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700">Card Design</button>
+                            <button data-template="poster" class="tab-pill px-4 py-2 rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700">Poster</button>
+                        </div>
+                        <div id="templateDisplay" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        </div>
+                    </div>
+                    <div class="fade-in" style="animation-delay: 0.4s">
+                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span class="lucide lucide-eye w-6 h-6 text-green-400"></span>
+                            Accessibility Report
+                        </h2>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <button id="contrastTab" class="tab-pill active px-4 py-2 rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700">WCAG Contrast</button>
+                            <button id="colorBlindTab" class="tab-pill px-4 py-2 rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700">Color Blindness</button>
+                        </div>
+                        <div id="accessibilityContent" class="bg-gray-900/50 rounded-2xl p-6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>st
