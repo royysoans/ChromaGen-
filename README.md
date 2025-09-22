@@ -3,7 +3,7 @@
 
 ---
                                                                             
-## Project Abstract
+## Project
 Color is a fundamental element of user experience—capable of evoking emotion, guiding attention, and shaping brand identity. Yet crafting a palette that is both visually harmonious **and** meets strict accessibility standards can be time-consuming and tedious.
 
 **ChromaGen** is an AI-powered web tool that streamlines this process.  
@@ -37,3 +37,12 @@ This can be used by Web Developers/Mobile Developers to check which color will l
 - **style.css**
 - **script.js**
 - **generate.js** 
+
+---
+
+## Contributors
+- This project was done by:-
+- Paavan Shah
+- Royston Soans
+- Namya Shah
+- Shaan Suvarna
