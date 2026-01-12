@@ -16,7 +16,6 @@ function getContrastRatio(hex1, hex2) {
 }
 
 // STRICT helper: Returns pure Black or White for maximum readability. 
-// No "smart" intermediate colors that might look washed out.
 function getStrictTextColor(bgColor) {
     const contrastWhite = getContrastRatio(bgColor, '#FFFFFF');
     const contrastBlack = getContrastRatio(bgColor, '#000000');
@@ -29,14 +28,13 @@ function isLight(hex) {
 
 // --- Templates ---
 
+// NOTE: Palette order from color-theory.js is [Background, Text, Primary, Secondary, Accent]
 function createWebsiteTemplate(palette) {
-    const [primary, secondary, accent, bg, text] = palette.map(c => c.hex);
+    const [bg, text, primary, secondary, accent] = palette.map(c => c.hex);
 
-    // Use strict Black/White for text to guarantee readability
-    // We ignore the palette's "text" color for body copy if it's low contrast
+    // Strict Black/White for text
     const safeBodyColor = getStrictTextColor(bg);
     const safePrimaryText = getStrictTextColor(primary);
-    const safeAccentText = getStrictTextColor(accent);
 
     return `
         <div class="template-card w-full h-full min-h-[600px] flex flex-col font-sans relative overflow-hidden shadow-2xl transition-all duration-500" style="background-color: ${bg}; color: ${safeBodyColor}">
@@ -95,13 +93,10 @@ function createWebsiteTemplate(palette) {
 }
 
 function createMobileTemplate(palette) {
-    const [primary, secondary, accent, bg, text] = palette.map(c => c.hex);
+    const [bg, text, primary, secondary, accent] = palette.map(c => c.hex);
 
-    // Strict Accessibility
     const safeText = getStrictTextColor(bg);
     const isDarkBg = !isLight(bg);
-
-    // Card styling
     const cardBg = isDarkBg ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
     const cardText = isDarkBg ? '#FFFFFF' : '#000000';
 
@@ -114,7 +109,6 @@ function createMobileTemplate(palette) {
                 <!-- App Screen -->
                 <div class="w-full h-full flex flex-col relative" style="background-color: ${bg}; color: ${safeText}">
                     
-                    <!-- App Header -->
                     <div class="pt-16 px-6 pb-6 flex justify-between items-end">
                         <h2 class="text-3xl font-black tracking-tighter">Feed.</h2>
                         <div class="w-10 h-10 rounded-full border-2 p-0.5" style="border-color: ${accent}">
@@ -122,12 +116,9 @@ function createMobileTemplate(palette) {
                         </div>
                     </div>
 
-                    <!-- Scrollable Content -->
                     <div class="flex-1 overflow-y-auto px-6 pb-20 no-scrollbar space-y-6">
                         
-                        <!-- Featured Card -->
                         <div class="aspect-[4/5] w-full rounded-3xl relative overflow-hidden shadow-lg group">
-                            <!-- Background Image simulation -->
                             <div class="absolute inset-0 bg-gray-800"></div> 
                             <div class="absolute inset-0" style="background: linear-gradient(45deg, ${primary}, ${secondary}); opacity: 0.8"></div>
                             
@@ -144,7 +135,6 @@ function createMobileTemplate(palette) {
                             </div>
                         </div>
 
-                        <!-- Pill List -->
                         <div class="flex gap-3 overflow-x-auto pb-2 -mx-6 px-6">
                             ${['All', 'Trending', 'Art', 'Music'].map((cat, i) => `
                                 <div class="px-6 py-3 rounded-full text-sm font-bold whitespace-nowrap" 
@@ -155,7 +145,6 @@ function createMobileTemplate(palette) {
                         </div>
                     </div>
 
-                    <!-- Floating Tab Bar -->
                     <div class="absolute bottom-6 left-6 right-6 h-16 bg-black/90 backdrop-blur-xl rounded-full flex items-center justify-around px-4 z-30 shadow-2xl skew-x-0" style="border: 1px solid rgba(255,255,255,0.1)">
                         <div class="p-2" style="color: ${primary}"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
                         <div class="p-2 text-white/40"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div>
@@ -168,20 +157,22 @@ function createMobileTemplate(palette) {
 }
 
 function createDashboardTemplate(palette) {
-    const [primary, secondary, accent, bg, text] = palette.map(c => c.hex);
+    const [bg, text, primary, secondary, accent] = palette.map(c => c.hex);
 
-    // Strict Neutral Shell
+    // FIXED: Use the actual palette Logic for backgrounds. 
+    // If the mood was dark, 'bg' is already dark. If light, 'bg' is light.
     const bgIsLight = isLight(bg);
-    const dashboardBg = bgIsLight ? '#f8fafc' : '#0f172a'; // Slate-50 / Slate-900
-    const textOnShell = bgIsLight ? '#0f172a' : '#f8fafc';
-    const cardSurface = bgIsLight ? '#ffffff' : '#1e293b';
-    const border = bgIsLight ? '#e2e8f0' : '#334155';
+    const textOnShell = getStrictTextColor(bg);
+
+    // Derived colors for cards (slightly lighter/darker than bg)
+    const cardSurface = bgIsLight ? '#ffffff' : 'rgba(255,255,255,0.05)';
+    const border = bgIsLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)';
 
     return `
-        <div class="template-card w-full h-full min-h-[600px] rounded-xl flex overflow-hidden font-sans shadow-2xl border" style="background-color: ${dashboardBg}; color: ${textOnShell}; border-color: ${border}">
+        <div class="template-card w-full h-full min-h-[600px] rounded-xl flex overflow-hidden font-sans shadow-2xl border" style="background-color: ${bg}; color: ${textOnShell}; border-color: ${border}">
             
             <!-- Sidebar -->
-            <aside class="w-16 lg:w-64 flex flex-col border-r py-6 items-center lg:items-stretch px-0 lg:px-6 relative z-10" style="border-color: ${border}; background-color: ${dashboardBg}">
+            <aside class="w-16 lg:w-64 flex flex-col border-r py-6 items-center lg:items-stretch px-0 lg:px-6 relative z-10" style="border-color: ${border}; background-color: ${bg}">
                 <div class="mb-10 flex justify-center lg:justify-start items-center gap-3">
                     <div class="w-8 h-8 rounded-lg" style="background-color: ${primary}"></div>
                     <span class="font-bold text-lg hidden lg:block tracking-tight">Dash.</span>
@@ -190,7 +181,7 @@ function createDashboardTemplate(palette) {
                 <div class="space-y-1 flex-1 w-full">
                     ${['Overview', 'Performance', 'Settings'].map((item, i) => `
                         <div class="p-3 lg:px-4 rounded-lg cursor-pointer flex items-center justify-center lg:justify-start gap-4 ${i === 0 ? 'font-bold' : 'opacity-60 hover:opacity-100'}"
-                             style="${i === 0 ? `background-color: ${bgIsLight ? '#e2e8f0' : '#334155'};` : ''}">
+                             style="${i === 0 ? `background-color: ${bgIsLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)'};` : ''}">
                             <div class="w-4 h-4 rounded-full" style="background-color: ${i === 0 ? accent : 'currentColor'}"></div>
                             <span class="hidden lg:block text-sm">${item}</span>
                         </div>
@@ -199,7 +190,7 @@ function createDashboardTemplate(palette) {
             </aside>
 
             <!-- Main Dashboard -->
-            <main class="flex-1 p-8 lg:p-10 overflow-y-auto bg-opacity-50">
+            <main class="flex-1 p-8 lg:p-10 overflow-y-auto">
                 <header class="flex justify-between items-center mb-10">
                     <div>
                         <h2 class="text-3xl font-bold tracking-tight mb-1">Overview</h2>
@@ -238,7 +229,7 @@ function createDashboardTemplate(palette) {
 }
 
 function createPosterTemplate(palette) {
-    const [primary, secondary, accent, bg, text] = palette.map(c => c.hex);
+    const [bg, text, primary, secondary, accent] = palette.map(c => c.hex);
     const safeText = getStrictTextColor(bg);
 
     return `

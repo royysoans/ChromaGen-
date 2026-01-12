@@ -17,7 +17,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.static(__dirname));
 
 // Proxy endpoint for Groq API
-app.post('/api/generate', async (req, res) => {
+app.post('/api/chat', async (req, res) => {
     const apiKey = process.env.GROQ_API_KEY;
 
     if (!apiKey) {
