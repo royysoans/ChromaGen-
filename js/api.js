@@ -72,3 +72,5 @@ export async function fetchPalette(textPrompt) {
         throw error;
     }
 }
+
+

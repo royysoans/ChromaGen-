@@ -110,8 +110,8 @@ export function renderPalette(palette) {
                 <div class="color-name" style="font-size: 0.8rem; opacity: 0.6; margin-top: 4px;">${colorName}</div>
             </div>
             
-            <label for="${inputId}" class="absolute top-2 right-2 opacity-100 bg-black/30 hover:bg-white/20 hover:scale-110 transition-all p-2 rounded-full backdrop-blur-md cursor-pointer z-20 shadow-sm border border-white/10" title="Tune Color">
-                <i data-lucide="sliders-horizontal" style="width:16px; height:16px; color: white;"></i>
+            <label for="${inputId}" class="absolute top-2 right-2 opacity-100 bg-white hover:bg-gray-100 hover:scale-110 transition-all p-2 rounded-full cursor-pointer z-20 shadow-md" title="Tune Color">
+                <i data-lucide="pencil" style="width:16px; height:16px; color: black;"></i>
             </label>
             <input type="color" id="${inputId}" value="${color.hex}" class="sr-only">
         `;

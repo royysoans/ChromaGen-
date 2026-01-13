@@ -1,48 +1,51 @@
-# ChromaGen  
-**AI-Powered Generative Palettes for Designers**
+# ChromaGen Pro 🎨
+**AI-Powered Generative Palettes for Modern Designers**
 
----
-                                                                            
-## Project
-Color is a fundamental element of user experience—capable of evoking emotion, guiding attention, and shaping brand identity. Yet crafting a palette that is both visually harmonious **and** meets strict accessibility standards can be time-consuming and tedious.
-
-**ChromaGen** is an AI-powered web tool that streamlines this process.  
-Using prompts, ChromaGen generates complete, ready-to-use color palettes **automatically checked for WCAG accessibility compliance**. Designers and developers can focus on creativity while the system ensures great color choices.
-
-Where can this be used?
-This can be used by Web Developers/Mobile Developers to check which color will look better over the other, plus it will give them a preview on how to color code their app. 
+ChromaGen Pro is an intelligent color tool that generates, contextualizes, and exports accessible color palettes for web and mobile applications. Beyond simple generation, it allows for real-time fine-tuning and instant previewing on real-world UI components.
 
 ---
 
-## Key Features
-- **Multi-Modal Prompting** – Describe a mood/brand or upload an image to inspire your palette.
-- **Generative Color Engine** – AI model creates a harmonious set of 5–7 colors based on your input.
-- **Structured Output** – Each color is labeled with a role (Primary, Secondary, Accent) plus HEX, RGB, and HSL codes for easy copy/paste.
-- **Automated Accessibility Auditing** – Built-in WCAG AA/AAA contrast checks and color-blindness simulations (protanopia, deuteranopia, tritanopia).
-- **Preview** - With the colors returned by the API, a preview iwll be generated which can be used by developers to make their applications. 
+##  Key Features
+
+### 1.  Generative AI Engine
+- **Multi-Modal Prompting**: Describe a mood ("Cyberpunk Neon", "Corporate Fintech") to generate a thematically perfect 5-color palette.
+- **Color Theory Integration**: Automatically applies harmony rules (Analogous, Complementary, Triadic) to ensure visual cohesion.
+
+### 2.  Real-Time Contextual Previews
+Instantly visualizes your palette on four distinct templates:
+- **Landing Page**: Hero sections and call-to-actions.
+- **Mobile App**: UI elements, lists, and navigation.
+- **Dashboard**: Data visualization and dark inputs.
+- **Event Poster**: Typography and graphic impact.
+
+### 3.  Interactive Editor
+- **Live Tweaking**: Click the **Pencil Icon** (white button on top-right of colors) to adjust any color.
+- **Instant Feedback**: Changes are immediately reflected across all Previews and the Accessibility Audit.
+
+### 4.  Automated Accessibility Audit
+Ensures your design is inclusive from day one:
+- **Contrast Ratios**: Checks WCAG AA/AAA compliance for text against backgrounds.
+- **Color Blindness Simulation**: visualizes how the palette appears to users with Protanopia, Deuteranopia, and Tritanopia.
+
+### 5.  History & Export
+- **Palette History**: Automatically saves your last 10 generations in a convenient sidebar.
+- **Export Options**: One-click copy for:
+    - **CSS Variables** (`:root { --color-primary: ... }`)
+    - **Tailwind Config** (`theme.extend.colors`)
+    - **JSON Data** (Raw values and roles)
 
 ---
 
-## Tech Stack
-- **Frontend**: HTML, Tailwind CSS, Vanilla JavaScript  
-- **Backend**: Serverless Functions (Vercel) running on Node.js  
-- **AI Generation**: Google Gemini API (Generative Language)  
-- **Accessibility Tools**: Custom WCAG contrast-ratio calculations and color-blindness simulation
+##  Tech Stack
 
----
+- **Frontend**: HTML5, Vanilla JavaScript (ES Modules), Tailwind CSS
+- **Design System**: Glassmorphism UI, Lucide Icons
+- **Backend API**: Node.js, Express (Proxy for AI Service)
+- **AI Service**: Groq API (LLaMA/Mixtral models optimized for JSON output)
 
-## 📂 Repository Structure
-- **README.md**
-- **index.html**
-- **style.css**
-- **script.js**
-- **generate.js** 
 
----
-
-## Contributors
-- This project was done by:-
-- Paavan Shah
-- Royston Soans
-- Namya Shah
-- Shaan Suvarna
+##  Contributors
+- **Royston Soans** - *Lead Developer*
+- **Paavan Shah**
+- **Namya Shah**
+- **Shaan Suvarna**

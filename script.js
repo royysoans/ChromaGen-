@@ -54,5 +54,39 @@ async function handleGenerate() {
     }
 }
 
+async function handleRefine() {
+    const instruction = document.getElementById('refineInput').value.trim();
+    if (!instruction) return;
+
+    // Loading State (Re-use main loading or create subtle one? Re-use for now)
+    document.getElementById('loadingState').classList.remove('hidden');
+    document.getElementById('resultsSection').classList.add('hidden');
+
+    try {
+        const newPalette = await refinePalette(currentPalette, instruction);
+        currentPalette = newPalette;
+
+        // Render
+        renderPalette(currentPalette);
+        renderTemplates(currentPalette);
+        renderAccessibility(currentPalette);
+        setupExport(currentPalette);
+        addToHistory(currentPalette, `Refined: ${instruction}`);
+
+        document.getElementById('loadingState').classList.add('hidden');
+        document.getElementById('resultsSection').classList.remove('hidden');
+
+        // Clear input logic? Maybe keep it for further refinement. 
+        // document.getElementById('refineInput').value = ''; 
+
+        if (window.lucide) window.lucide.createIcons();
+
+    } catch (error) {
+        console.error('Error in handleGenerate:', error);
+        alert(`Failed to generate palette: ${error.message}`);
+        document.getElementById('loadingState').classList.add('hidden');
+    }
+}
+
 // Event Listeners
 document.getElementById('generateBtn').addEventListener('click', handleGenerate);
