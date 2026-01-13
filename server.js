@@ -30,7 +30,7 @@ app.post('/api/chat', async (req, res) => {
         const fetch = (await import('node-fetch')).default;
 
         const payload = {
-            model: "meta-llama/llama-4-scout-17b-16e-instruct",
+            model: "llama-3.3-70b-versatile",
             messages: req.body.messages,
             temperature: 0.7,
             max_tokens: 1024,
