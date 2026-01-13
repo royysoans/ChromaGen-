@@ -231,30 +231,65 @@ function createDashboardTemplate(palette) {
 function createPosterTemplate(palette) {
     const [bg, text, primary, secondary, accent] = palette.map(c => c.hex);
     const safeText = getStrictTextColor(bg);
+    const safePrimaryText = getStrictTextColor(primary);
 
     return `
-        <div class="template-card w-full h-full flex items-center justify-center p-8 bg-[#111]">
-            <div class="w-[450px] aspect-[3/4] bg-white rounded-none shadow-2xl relative overflow-hidden flex flex-col p-8" style="background-color: ${bg}; color: ${safeText}">
+        <div class="template-card w-full h-full flex items-center justify-center p-8 bg-[#0a0a0a]">
+            <div class="w-[420px] aspect-[9/16] relative overflow-hidden shadow-2xl" style="background-color: ${bg}; color: ${safeText}">
                 
-                <div class="border-b-4 pb-4 mb-auto flex justify-between items-start" style="border-color: ${safeText}">
-                    <h2 class="text-6xl font-black leading-none tracking-tighter">TYPO<br>GRA<br>PHY.</h2>
-                    <div class="w-16 h-16 rounded-full" style="background-color: ${primary}"></div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4 mt-auto">
-                    <div class="aspect-square w-full" style="background-color: ${secondary}"></div>
-                    <div class="flex flex-col justify-between">
-                         <div class="text-sm font-bold leading-tight">
-                            International <br> Design <br> Summit
-                         </div>
-                         <div class="text-xs font-mono">
-                            BERLIN / 2026
-                         </div>
+                <!-- Top Badge -->
+                <div class="absolute top-0 left-0 right-0 p-6 flex justify-between items-start z-20">
+                    <div class="px-4 py-2 text-xs font-black tracking-[0.3em] uppercase" style="background-color: ${accent}; color: ${getStrictTextColor(accent)}">
+                        LIVE
+                    </div>
+                    <div class="text-right text-xs font-mono opacity-70">
+                        NO. 001<br>LIMITED
                     </div>
                 </div>
+
+                <!-- Main Content -->
+                <div class="absolute inset-0 flex flex-col justify-end p-8 z-10">
+                    
+                    <!-- Artist / Event Name -->
+                    <div class="mb-8">
+                        <h1 class="text-8xl font-black leading-[0.85] tracking-tighter uppercase mb-4">
+                            NEON<br>
+                            <span style="color: ${primary}">PULSE</span>
+                        </h1>
+                        <p class="text-sm font-medium tracking-widest opacity-70 uppercase">
+                            World Tour 2026
+                        </p>
+                    </div>
+
+                    <!-- Date & Venue -->
+                    <div class="border-t-2 pt-6 flex justify-between items-end" style="border-color: ${safeText}20">
+                        <div>
+                            <div class="text-5xl font-black leading-none">27</div>
+                            <div class="text-sm font-bold tracking-wider uppercase opacity-70">MAR</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold">Madison Square</div>
+                            <div class="text-sm opacity-50">New York, NY</div>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <button class="mt-8 w-full py-4 text-sm font-black tracking-widest uppercase transition-transform hover:scale-105" 
+                            style="background-color: ${primary}; color: ${safePrimaryText}">
+                        Get Tickets →
+                    </button>
+                </div>
+
+                <!-- Background Geometric Elements -->
+                <div class="absolute top-1/4 -right-20 w-80 h-80 rounded-full opacity-30 blur-3xl" style="background-color: ${primary}"></div>
+                <div class="absolute bottom-1/3 -left-10 w-60 h-60 rounded-full opacity-20 blur-2xl" style="background-color: ${secondary}"></div>
                 
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12rem] font-black opacity-10 select-none pointer-events-none" style="color: ${accent}">
-                    01
+                <!-- Grid Overlay -->
+                <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(${safeText} 1px, transparent 1px), linear-gradient(90deg, ${safeText} 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+                <!-- Large Background Number -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20rem] font-black opacity-[0.03] select-none pointer-events-none leading-none" style="color: ${safeText}">
+                    27
                 </div>
             </div>
         </div>
