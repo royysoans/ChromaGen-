@@ -38,14 +38,14 @@ Ensures your design is inclusive from day one:
 
 ##  Tech Stack
 
-- **Frontend**: HTML5, Vanilla JavaScript (ES Modules), Tailwind CSS
+- **Frontend**: HTML5, Vanilla JavaScript , Tailwind CSS
 - **Design System**: Glassmorphism UI, Lucide Icons
-- **Backend API**: Node.js, Express (Proxy for AI Service)
-- **AI Service**: Groq API (LLaMA/Mixtral models optimized for JSON output)
+- **Backend API**: Node.js, Express 
+- **AI Service**: Groq API 
 
 
 ##  Contributors
-- **Royston Soans** - *Lead Developer*
+- **Royston Soans**
 - **Paavan Shah**
 - **Namya Shah**
 - **Shaan Suvarna**
