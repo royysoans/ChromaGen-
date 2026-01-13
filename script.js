@@ -1,5 +1,7 @@
 import { fetchPalette } from './js/api.js';
 import { renderPalette, renderTemplates, renderAccessibility } from './js/ui.js';
+import { setupExport } from './js/export.js';
+import { addToHistory } from './js/history.js';
 
 let currentPalette = [];
 
@@ -33,6 +35,8 @@ async function handleGenerate() {
         renderPalette(currentPalette);
         renderTemplates(currentPalette);
         renderAccessibility(currentPalette);
+        setupExport(currentPalette);
+        addToHistory(currentPalette, textPrompt);
 
         // Show results and hide loading
         document.getElementById('loadingState').classList.add('hidden');

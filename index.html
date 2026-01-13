@@ -24,24 +24,38 @@
             </p>
         </header>
 
-        <!-- Input Section -->
-        <div class="card-panel" style="max-width: 800px; margin: 0 auto 4rem;">
-            <!-- Text Input -->
-            <div style="margin-bottom: 2rem;">
-                <label style="display: block; margin-bottom: 0.8rem; font-size: 0.9rem; color: var(--text-secondary);">
-                    <i data-lucide="sparkles"
-                        style="width: 16px; display: inline-block; vertical-align: text-bottom; margin-right: 4px;"></i>
-                    Describe the mood or theme
-                </label>
-                <textarea id="textPrompt" rows="3" class="input-field"
-                    placeholder="e.g. 'Minimalist Japanese tea house', 'Cyberpunk neon rain', 'Corporate fintech trust'..."></textarea>
+        <div style="display: flex; gap: 2rem; max-width: 1000px; margin: 0 auto 4rem; align-items: flex-start;">
+
+            <!-- History Sidebar -->
+            <div id="historySection" class="hidden lg:block w-64 flex-shrink-0 sticky top-8">
+                <h3 class="text-sm font-bold uppercase tracking-widest opacity-50 mb-4 flex items-center gap-2">
+                    <i data-lucide="clock" class="w-4 h-4"></i> History
+                </h3>
+                <div id="historyList" class="max-h-[20rem] overflow-y-auto pr-2 custom-scrollbar">
+                    <!-- Items injected here -->
+                </div>
             </div>
 
-            <!-- Action -->
-            <div style="text-align: center;">
-                <button id="generateBtn" class="btn-prism">
-                    Generate Palette
-                </button>
+            <!-- Input Section (Flexible) -->
+            <div class="card-panel" style="flex: 1; margin: 0;">
+                <!-- Text Input -->
+                <div style="margin-bottom: 2rem;">
+                    <label
+                        style="display: block; margin-bottom: 0.8rem; font-size: 0.9rem; color: var(--text-secondary);">
+                        <i data-lucide="sparkles"
+                            style="width: 16px; display: inline-block; vertical-align: text-bottom; margin-right: 4px;"></i>
+                        Describe the mood or theme
+                    </label>
+                    <textarea id="textPrompt" rows="3" class="input-field"
+                        placeholder="e.g. 'Minimalist Japanese tea house', 'Cyberpunk neon rain', 'Corporate fintech trust'..."></textarea>
+                </div>
+
+                <!-- Action -->
+                <div style="text-align: center;">
+                    <button id="generateBtn" class="btn-prism">
+                        Generate Palette
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -59,7 +73,16 @@
         <div id="resultsSection" class="hidden animate-fade-in">
 
             <!-- Palette Stripe -->
-            <h2 style="justify-content: center; margin-bottom: 2rem;">Generated Palette</h2>
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto 2rem;">
+                <h2>Generated Palette</h2>
+                <button id="exportBtn" class="btn-prism" style="font-size: 0.9rem; padding: 0.6rem 1.2rem;">
+                    <i data-lucide="download"
+                        style="width: 16px; display: inline-block; vertical-align: text-bottom; margin-right: 4px;"></i>
+                    Export
+                </button>
+            </div>
+
             <div id="paletteDisplay" class="color-swatch-grid">
                 <!-- Swatches injected here -->
             </div>
@@ -99,8 +122,50 @@
                     <!-- Report injected here -->
                 </div>
             </div>
-
         </div>
+
+        <!-- Export Modal -->
+        <div id="exportModal"
+            class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-[#111] border border-gray-800 rounded-2xl p-8 w-full max-w-md relative shadow-2xl">
+                <button id="closeExport" class="absolute top-4 right-4 text-white/50 hover:text-white">
+                    <i data-lucide="x"></i>
+                </button>
+
+                <h3 class="text-xl font-bold mb-6 text-white">Export Palette</h3>
+
+                <div class="space-y-4">
+                    <button id="copyCss"
+                        class="w-full flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-left group">
+                        <div>
+                            <div class="font-bold text-white mb-1">CSS Variables</div>
+                            <div class="text-xs text-white/50 font-mono">:root { --color-primary: ... }</div>
+                        </div>
+                        <i data-lucide="copy" class="text-white/30 group-hover:text-white transition-colors"></i>
+                    </button>
+
+                    <button id="copyTailwind"
+                        class="w-full flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-left group">
+                        <div>
+                            <div class="font-bold text-white mb-1">Tailwind Config</div>
+                            <div class="text-xs text-white/50 font-mono">colors: { primary: '...' }</div>
+                        </div>
+                        <i data-lucide="copy" class="text-white/30 group-hover:text-white transition-colors"></i>
+                    </button>
+
+                    <button id="copyJson"
+                        class="w-full flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-left group">
+                        <div>
+                            <div class="font-bold text-white mb-1">JSON Data</div>
+                            <div class="text-xs text-white/50 font-mono">[ { "hex": "...", "role": "..." } ]
+                            </div>
+                        </div>
+                        <i data-lucide="copy" class="text-white/30 group-hover:text-white transition-colors"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <script type="module" src="script.js"></script>
