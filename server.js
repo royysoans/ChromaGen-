@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 
 dotenv.config();
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -30,7 +31,7 @@ app.post('/api/chat', async (req, res) => {
         const fetch = (await import('node-fetch')).default;
 
         const payload = {
-            model: "llama-3.3-70b-versatile",
+            model: process.env.GROQ_MODEL || "openai/gpt-oss-120b",
             messages: req.body.messages,
             temperature: 0.7,
             max_tokens: 1024,

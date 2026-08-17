@@ -4,7 +4,10 @@
 ChromaGen Pro is an intelligent color tool that generates, contextualizes, and exports accessible color palettes for web and mobile applications. Beyond simple generation, it allows for real-time fine-tuning and instant previewing on real-world UI components.
 
 ---
-
+![ChromaGen Demo](src/1.png)
+![Colour Palette Demo](src/2.png)
+![Accessibility Audit Demo](src/3.png)
+---
 ##  Key Features
 
 ### 1.  Generative AI Engine

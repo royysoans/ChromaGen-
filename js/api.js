@@ -47,7 +47,19 @@ export async function fetchPalette(textPrompt) {
         });
 
         if (!response.ok) {
-            throw new Error(`API Error: ${response.status}`);
+            let errorMsg = `API Error: ${response.status}`;
+            try {
+                const errorData = await response.json();
+                if (errorData && errorData.message) {
+                    errorMsg = errorData.message;
+                }
+            } catch (_) {
+                // Fallback to status text if JSON parsing fails
+                if (response.statusText) {
+                    errorMsg = `API Error: ${response.status} (${response.statusText})`;
+                }
+            }
+            throw new Error(errorMsg);
         }
 
         const data = await response.json();
