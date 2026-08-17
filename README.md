@@ -5,7 +5,9 @@ ChromaGen Pro is an intelligent color tool that generates, contextualizes, and e
 
 ---
 ![ChromaGen Demo](src/1.png)
+---
 ![Colour Palette Demo](src/2.png)
+---
 ![Accessibility Audit Demo](src/3.png)
 ---
 ##  Key Features
